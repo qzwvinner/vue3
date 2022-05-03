@@ -1,20 +1,54 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
 
-const routes: Array<RouteRecordRaw> = [
+const routes = [
   {
-    path: '/',
+    path: '/Home',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      isShow: false,
+    },
+    children: [
+      {
+        path: '/courseList',
+        name: 'CourseListin',
+        meta: {
+          isShow: true,
+          title: '课程列表'
+        },
+        component: () => import(/* webpackChunkName: "login" */ '../views/courseList.vue')
+      },
+      {
+        path: '/teacherList',
+        name: 'TeacherList',
+        meta: {
+          isShow: true,
+          title: '讲师列表'
+        },
+        component: () => import(/* webpackChunkName: "login" */ '../views/teacherList.vue')
+      },
+      {
+        path: '/personal',
+        name: 'Personal',
+        meta: {
+          isShow: true,
+          title: '个人中心'
+        },
+        component: () => import(/* webpackChunkName: "login" */ '../views/personal.vue')
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/',
+    name: 'Login',
+    component: Login,
+    meta: {
+      isShow: false,
+    }
+  },
+
 ]
 
 const router = createRouter({
